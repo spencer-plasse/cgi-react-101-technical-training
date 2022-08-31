@@ -1,34 +1,45 @@
 // React
 import { useState } from "react";
 
+// Redux
+import { useSelector } from "react-redux";
+
 // React Router
 import { Navigate } from "react-router-dom";
 
 // React Bootstrap
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button"
+import Button from "react-bootstrap/Button";
 
 // Custom React components
-import { Question } from '../components/Question'
+import { Question } from "../components/Question";
 
 export const Questions = () => {
 	const [validated, setValidated] = useState(false);
+	const email = useSelector((state) => state.auth.user.email);
 
 	function submitAnswers(event){
 		const form = event.currentTarget;
 
-		if(form.checkValidity() === false){
+		try{
+			if(form.checkValidity() === false){
+				throw new Error("Form is missing answers.");
+			}
+
+			
+
+			setValidated(true);
+		}
+
+		catch(exception){
+			alert(exception.message);
+
 			setValidated(false);
 			event.preventDefault();
 			event.stopPropagation();
-			
+				
 			return;
 		}
-
-		setValidated(true);
-
-		// TODO: Persist result to DB before redirect to results page
-		
 	}
 
 	if(validated){
