@@ -14,12 +14,12 @@ import Button from "react-bootstrap/Button";
 import { LinkContainer } from 'react-router-bootstrap';
 
 export const Logout = () => {
-    const [loggedOut, setLoggedOut] = useState(false);
+  const [loggedOut, setLoggedOut] = useState(false);
 	const dispatch = useDispatch();
 
 	function handleLogout(){
 		dispatch(logout());
-        setLoggedOut(true);
+    setLoggedOut(true);
 	}
 
 	if(loggedOut){
@@ -30,17 +30,16 @@ export const Logout = () => {
 		return (
 			<Form onSubmit={handleLogout}>
 				<Form.Text className="h5 mb-3">Are you sure you want to log out?</Form.Text>
-	
-                <Form.Group>
-                    <Button type="button" variant="danger" className="mr-4">
-                        <LinkContainer to="/home">
-                            <span>Cancel</span>
-                        </LinkContainer>
-                    </Button>
 
-                    <Button type="submit" variant="primary">Log Out</Button>
-                </Form.Group>
-                
+				<Form.Group>
+					<Button type="button" variant="danger" className="mr-4">
+						<LinkContainer to="/home">
+							<span>Cancel</span>
+						</LinkContainer>
+					</Button>
+
+					<Button type="submit" variant="primary">Log Out</Button>
+				</Form.Group>
 			</Form>
 		)
 	}

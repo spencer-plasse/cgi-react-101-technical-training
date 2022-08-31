@@ -16,30 +16,39 @@ export const Register = () => {
 	function register(event){
 		const form = event.currentTarget;
 
-		if(form.checkValidity() === false){
+		try{
+			if(form.checkValidity() === false){
+				throw new Error("Form received invalid input.");
+			}
+
+			// Check if a registered user already exists for the specified email
+			const email = form.elements["email"].value;	
+			const userExists = localStorage.getItem(email);
+
+			if(userExists){
+				throw new Error("A user already exists for the provided email address.");
+			}
+
+			// If no user exists, register the new user in localStorage
+			const userData = {
+				username: form.elements["username"].value,
+				password: form.elements["password"].value
+			};
+
+			// Users are stored as email (string) -> other data (JSON object stored as a string with username and password)
+			localStorage.setItem(email, JSON.stringify(userData));
+			setValidated(true);
+		}
+
+		catch(exception){
+			alert(exception.message);
+
 			setValidated(false);
 			event.preventDefault();
 			event.stopPropagation();
 			
 			return;
 		}
-
-		// TODO: Check if user exists in system (via email address)
-		const userExists = false;
-
-		if(userExists){
-			alert("A user already exists for the provided email address.");
-
-			setValidated(false);
-			event.preventDefault();
-			event.stopPropagation();
-
-			return;
-		}
-
-		setValidated(true);
-
-		// TODO: If not, API call to store new user info (localStorage?)
 	}
 
 	if(validated){
@@ -52,7 +61,7 @@ export const Register = () => {
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={3}>
 						<Form.Label>Username</Form.Label>
-						<Form.Control type="text" required />
+						<Form.Control type="text" id="username" required />
 	
 						<Form.Control.Feedback type="invalid">Username is a required field!</Form.Control.Feedback>
 					</Form.Group>
@@ -61,7 +70,7 @@ export const Register = () => {
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={4}>
 						<Form.Label>Email Address</Form.Label>
-						<Form.Control type="email" required />
+						<Form.Control type="email" id="email" required />
 	
 						<Form.Control.Feedback type="invalid">Email address is a required field!</Form.Control.Feedback>
 					</Form.Group>
@@ -70,7 +79,7 @@ export const Register = () => {
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={4}>
 						<Form.Label>Password</Form.Label>
-						<Form.Control type="password" required />
+						<Form.Control type="password" id="password" required />
 	
 						<Form.Control.Feedback type="invalid">Password is a required field!</Form.Control.Feedback>
 					</Form.Group>
