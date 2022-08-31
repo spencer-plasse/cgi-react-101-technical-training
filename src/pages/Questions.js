@@ -26,6 +26,9 @@ export const Questions = () => {
 		}
 
 		setValidated(true);
+
+		// TODO: Persist result to DB before redirect to results page
+		
 	}
 
 	if(validated){
@@ -36,9 +39,9 @@ export const Questions = () => {
 		return (
 			<Form noValidate validated={validated} onSubmit={submitAnswers}>
 				<Question labelText="What is your birth date?" type="date" />
-				<Question labelText="Do you workout weekly?" type="radio" questionId={1} answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Do you eat junk food?" type="radio" questionId={2} answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Can you touch your toes?" type="radio" questionId={3} answers={["Yes", "No"]} />
+				<Question labelText="Do you workout weekly?" type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText="Do you eat junk food?" type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText="Can you touch your toes?" type="radio" questionId="canTouchToes" answers={["Yes", "No"]} />
 	
 				<Button type="submit" variant="primary">Submit</Button>
 			</Form>

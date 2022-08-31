@@ -8,16 +8,12 @@ export const authSlice = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            state = {
-                loggedIn: true,
-                user: action.payload.user
-            };
+            state.loggedIn = true;
+            state.user = action.payload.user;
         },
         logout: (state) => {
-            state = {
-                loggedIn: false,
-                user: null
-            };
+            state.loggedIn = false;
+            state.user = null;
         }
     }
 });
