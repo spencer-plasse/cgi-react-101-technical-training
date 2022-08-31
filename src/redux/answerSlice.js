@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const answerOffsets = {
     'Never': 1,
@@ -6,24 +6,27 @@ const answerOffsets = {
     'Always': -1,
     'Yes': 1,
     'No': -1
-}
+};
 
 export const answerSlice = createSlice({
     name: 'answers',
     initialState: {
         dateOfBirth: null,
-        radioQuestions: [null, null, null]
+        doesWorkout: null,
+        doesEatJunkFood: null,
+        canTouchToes: null
     },
     reducers: {
         saveDateAnswer: (state, action) => {
             state.dateOfBirth = action.payload;
         },
         saveRadioAnswer: (state, action) => {
-            state.radioQuestions[action.payload.questionID] = answerOffsets[action.payload.answer]
+            const {questionId, answer} = action.payload;
+            state[questionId] = answerOffsets[answer];
         }
     }
 });
 
 export const { saveDateAnswer, saveRadioAnswer } = answerSlice.actions;
-export const { initialAnswerState } = answerSlice.getInitialState()
+export const { initialAnswerState } = answerSlice.getInitialState();
 export default answerSlice.reducer;

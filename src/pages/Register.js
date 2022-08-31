@@ -51,17 +51,10 @@ export const Register = () => {
 			<Form noValidate onSubmit={register} validated={validated}>
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={3}>
-						<Form.Label>First Name</Form.Label>
+						<Form.Label>Username</Form.Label>
 						<Form.Control type="text" required />
 	
-						<Form.Control.Feedback type="invalid">First name is a required field!</Form.Control.Feedback>
-					</Form.Group>
-	
-					<Form.Group as={Col} xs={3}>
-						<Form.Label>Last Name</Form.Label>
-						<Form.Control type="text" required />
-	
-						<Form.Control.Feedback type="invalid">Last name is a required field!</Form.Control.Feedback>
+						<Form.Control.Feedback type="invalid">Username is a required field!</Form.Control.Feedback>
 					</Form.Group>
 				</Row>
 				

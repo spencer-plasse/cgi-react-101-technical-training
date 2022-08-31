@@ -6,6 +6,7 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Home } from '../pages/Home'
 import { Login } from '../pages/Login'
+import { Logout } from '../pages/Logout'
 import { Questions } from '../pages/Questions'
 import { Register } from '../pages/Register'
 import { Results } from '../pages/Results'
@@ -25,6 +26,7 @@ function App() {
             <Route path="/questions" element={<Questions />}></Route>
             <Route path="/results" element={<Results />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/logout" element={<Logout />}></Route>
             <Route path="/register" element={<Register />}></Route>
           </Routes>
         </Container>
