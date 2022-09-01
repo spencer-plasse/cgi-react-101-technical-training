@@ -28,27 +28,32 @@ export const Questions = () => {
 				throw new Error("Form is missing answers.");
 			}
 
-			const currentTime = new Date();
-			const dateOfBirth = new Date(answers.dateOfBirth);
+			const currentDatetime = new Date();
+			const dateOfBirth = answers.dateOfBirth; // Stored in Redux as an ISO date string (without time)
 			const doesWorkout = answers.doesWorkout;
 			const doesEatJunkFood = answers.doesEatJunkFood;
 			const canTouchToes = answers.canTouchToes;
 
-			const bodyAge = (currentTime.getFullYear() - dateOfBirth.getFullYear())
+			// Body age is calculated as the user's age + the combination of answer offsets (anywhere between -3 and 3)
+			const bodyAge = (currentDatetime.getFullYear() - new Date(dateOfBirth).getFullYear())
 											+ (doesWorkout + doesEatJunkFood + canTouchToes);
 
 			const oldData = JSON.parse(localStorage.getItem(email));
+
+			// Preserve all previous user data but add latest answers/results under the datetime they were submitted
 			const newData = {
 				...oldData,
 				results: {
 					...oldData.results,
-					[currentTime]: {
+					[currentDatetime]: {
 						dateOfBirth: dateOfBirth,
 						doesWorkout: doesWorkout,
 						doesEatJunkFood: doesEatJunkFood,
 						canTouchToes: canTouchToes,
 						bodyAge: bodyAge,
-						completedDate: currentTime
+						/* Preserved as an ISO string to make retrieval and display easier for "/results"
+						   Have to keep track of time as well for result order. */
+						completedDate: currentDatetime.toISOString()
 					}
 				}
 			};
