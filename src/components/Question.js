@@ -10,7 +10,7 @@ export const Question = (props) => {
 
 		case "date":
 			return (
-					<DateQuestion labelText={props.labelText} />
+					<DateQuestion questionId={props.questionId} labelText={props.labelText} />
 			)
 
 		default:
