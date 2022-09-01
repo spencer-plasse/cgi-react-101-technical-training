@@ -12,7 +12,7 @@ export const authSlice = createSlice({
 
             state.loggedIn = true;
             state.user = {
-                user: username,
+                username: username,
                 email: email
             };
         },

@@ -1,3 +1,7 @@
+ // React
+import { Fragment } from 'react';
+
+// Redux
 import { useSelector } from 'react-redux';
 
 // React Bootstrap
@@ -20,40 +24,42 @@ export const Header = () => {
 					</Nav.Link>
 				</Navbar.Brand>
 
-				<Nav>
-					<Nav.Item>
-						<Nav.Link>
-							<LinkContainer to="/questions">
-								<span>Questions</span>
-							</LinkContainer>
-						</Nav.Link>
-					</Nav.Item>
-					
-					<Nav.Item>
-						<Nav.Link>
-							<LinkContainer to="/results">
-								<span>Results</span>
-							</LinkContainer>
-						</Nav.Link>
-					</Nav.Item>
-				</Nav>
-
 				{authStatus.loggedIn && (
-					<Nav>
-						<Nav.Item>
-							<Nav.Link>
-								<LinkContainer to="/logout">
-									<span>Log Out</span>
-								</LinkContainer>
-							</Nav.Link>
-						</Nav.Item>
+					<Fragment>
+						<Nav>
+							<Nav.Item>
+								<Nav.Link>
+									<LinkContainer to="/questions">
+										<span>Questions</span>
+									</LinkContainer>
+								</Nav.Link>
+							</Nav.Item>
+							
+							<Nav.Item>
+								<Nav.Link>
+									<LinkContainer to="/results">
+										<span>Results</span>
+									</LinkContainer>
+								</Nav.Link>
+							</Nav.Item>
+						</Nav>
 
-						<Nav.Item>
-							<Navbar.Text>
-								Signed in as <span className="text-danger">{authStatus.user}</span>
-							</Navbar.Text>
-						</Nav.Item>
-					</Nav>
+						<Nav>
+							<Nav.Item>
+								<Nav.Link>
+									<LinkContainer to="/logout">
+										<span>Log Out</span>
+									</LinkContainer>
+								</Nav.Link>
+							</Nav.Item>
+
+							<Nav.Item>
+								<Navbar.Text>
+									Signed in as <span className="text-danger">{authStatus.user.username}</span>
+								</Navbar.Text>
+							</Nav.Item>
+						</Nav>
+					</Fragment>
 				)}
 
 				{!authStatus.loggedIn && (
