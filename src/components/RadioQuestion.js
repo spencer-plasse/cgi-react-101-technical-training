@@ -17,7 +17,7 @@ export const RadioQuestion = (props) => {
         {props.answers.map((answer, x) => {
           return (
               <Form.Check type="radio" name={questionId} value={answer} label={answer} 
-                      inline key={`${questionId}-answer${x}`} 
+                      inline key={`${questionId}-answer${x}`} id={`${questionId}`}
                       onClick={() => dispatch(saveRadioAnswer({questionId: questionId, answer: answer}))} />
             )
           })}
