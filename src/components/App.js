@@ -1,4 +1,7 @@
+// React
 import { React } from 'react';
+
+// React Router
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 // Custom components

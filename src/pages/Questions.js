@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useAuth } from "../redux/useAuth";
 
 // React Router
 import { Navigate } from "react-router-dom";
@@ -16,7 +16,7 @@ import { Question } from "../components/Question";
 
 export const Questions = () => {
 	const [validated, setValidated] = useState(false);
-	const email = useSelector((state) => state.auth.user.email);
+	const {loggedIn, email, } = useAuth();
 
 	function submitAnswers(event){
 		const form = event.currentTarget;
@@ -26,7 +26,7 @@ export const Questions = () => {
 				throw new Error("Form is missing answers.");
 			}
 
-			
+			// TODO: Save result under the logged in user's email address in localStorage
 
 			setValidated(true);
 		}
@@ -43,7 +43,12 @@ export const Questions = () => {
 	}
 
 	if(validated){
-		return <Navigate to="/results" />
+		return <Navigate to="/results" />;
+	}
+
+	else if(!loggedIn){
+		alert("You must log in to access this page!");
+		return <Navigate to="/login" />;
 	}
 
 	else{
@@ -56,6 +61,6 @@ export const Questions = () => {
 	
 				<Button type="submit" variant="primary">Submit</Button>
 			</Form>
-		)
+		);
 	}
 }

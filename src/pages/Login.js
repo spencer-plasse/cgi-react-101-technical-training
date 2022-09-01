@@ -35,8 +35,8 @@ export const Login = () => {
 			const userData = JSON.parse(localStorage.getItem(email));
 
 			// Make sure provided password matches the one from registration
-			if(userData.password != form.elements["password"].value){
-				throw new Error("Email address and password match.");
+			if(userData.password !== form.elements["password"].value){
+				throw new Error("Invalid login information.");
 			}
 
 			// Retrive matching username for provided login and log into account
