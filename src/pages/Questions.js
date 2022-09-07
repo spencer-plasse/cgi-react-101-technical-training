@@ -13,8 +13,9 @@ import { Navigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// Custom React components
+// Custom
 import { Question } from "../components/Question";
+import { questions } from "../utils/constants";
 
 export const Questions = () => {
 	const [validated, setValidated] = useState(false);
@@ -89,10 +90,10 @@ export const Questions = () => {
 	else{
 		return (
 			<Form noValidate validated={validated} onSubmit={submitForm}>
-				<Question labelText="What is your birth date?" type="date" questionId="dateOfBirth" />
-				<Question labelText="Do you workout weekly?" type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Do you eat junk food?" type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Can you touch your toes?" type="radio" questionId="canTouchToes" answers={["Yes", "No"]} />
+				<Question labelText={questions.DATE_OF_BIRTH} type="date" questionId="dateOfBirth" />
+				<Question labelText={questions.DOES_WORKOUT} type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText={questions.DOES_EAT_JUNK_FOOD} type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText={questions.CAN_TOUCH_TOES} type="radio" questionId="canTouchToes" answers={["Yes", "No"]} />
 	
 				<Button type="submit" variant="primary">Submit</Button>
 			</Form>
