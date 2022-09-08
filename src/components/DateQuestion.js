@@ -15,7 +15,7 @@ export const DateQuestion = (props) => {
   return (
     <Form.Group className="mb-3">
       <Form.Label>{props.labelText}</Form.Label>
-      <Form.Control type="date" name="dateOfBirth" className="w-25" onChange={saveDate}/>
+      <Form.Control required type="date" name="dateOfBirth" id={`${props.questionId}`} className="w-25" onChange={saveDate} />
     </Form.Group>
   )
 }

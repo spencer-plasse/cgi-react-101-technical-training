@@ -32,13 +32,13 @@ export const Logout = () => {
 				<Form.Text className="h5 mb-3">Are you sure you want to log out?</Form.Text>
 
 				<Form.Group>
-					<Button type="button" variant="danger" className="mr-4">
+					<Button type="button" variant="dark" className="mr-4">
 						<LinkContainer to="/home">
 							<span>Cancel</span>
 						</LinkContainer>
 					</Button>
 
-					<Button type="submit" variant="primary">Log Out</Button>
+					<Button type="submit" variant="dark">Log Out</Button>
 				</Form.Group>
 			</Form>
 		)
