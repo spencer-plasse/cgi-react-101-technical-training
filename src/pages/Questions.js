@@ -2,8 +2,9 @@
 import { useState } from "react";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "../redux/useAuth";
+import { submitAnswers } from "../redux/answerSlice";
 
 // React Router
 import { Navigate } from "react-router-dom";
@@ -12,15 +13,17 @@ import { Navigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// Custom React components
+// Custom
 import { Question } from "../components/Question";
+import { questions, answerOffsets } from "../utils/constants";
 
 export const Questions = () => {
 	const [validated, setValidated] = useState(false);
 	const {loggedIn, email, } = useAuth();
 	const answers = useSelector((state) => state.answers);
+	const dispatch = useDispatch();
 
-	function submitAnswers(event){
+	function submitForm(event){
 		const form = event.currentTarget;
 
 		try{
@@ -36,7 +39,7 @@ export const Questions = () => {
 
 			// Body age is calculated as the user's age + the combination of answer offsets (anywhere between -3 and 3)
 			const bodyAge = (currentDatetime.getFullYear() - new Date(dateOfBirth).getFullYear())
-											+ (doesWorkout + doesEatJunkFood + canTouchToes);
+											+ (answerOffsets[doesWorkout] + answerOffsets[doesEatJunkFood] + answerOffsets[canTouchToes]);
 
 			const oldData = JSON.parse(localStorage.getItem(email));
 
@@ -59,6 +62,7 @@ export const Questions = () => {
 			};
 
 			localStorage.setItem(email, JSON.stringify(newData));
+			dispatch(submitAnswers);
 
 			setValidated(true);
 		}
@@ -85,11 +89,11 @@ export const Questions = () => {
 
 	else{
 		return (
-			<Form noValidate validated={validated} onSubmit={submitAnswers}>
-				<Question labelText="What is your birth date?" type="date" questionId="dateOfBirth" />
-				<Question labelText="Do you workout weekly?" type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Do you eat junk food?" type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />
-				<Question labelText="Can you touch your toes?" type="radio" questionId="canTouchToes" answers={["Yes", "No"]} />
+			<Form noValidate validated={validated} onSubmit={submitForm}>
+				<Question labelText={questions.DATE_OF_BIRTH} type="date" questionId="dateOfBirth" />
+				<Question labelText={questions.DOES_WORKOUT} type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText={questions.DOES_EAT_JUNK_FOOD} type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />
+				<Question labelText={questions.CAN_TOUCH_TOES} type="radio" questionId="canTouchToes" answers={["Yes", "No"]} />
 	
 				<Button type="submit" variant="primary">Submit</Button>
 			</Form>

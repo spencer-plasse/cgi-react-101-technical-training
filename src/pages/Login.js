@@ -65,15 +65,15 @@ export const Login = () => {
 
 	else{
 		return (
-			<Form noValidate validated={validated} onSubmit={handleLogin}>
+			<Form validated={validated} onSubmit={handleLogin}>
 				<Form.Group className="mb-3">
 					<Form.Label>Email Address</Form.Label>
-					<Form.Control type="email" id="email" className="w-25" />
+					<Form.Control required type="email" id="email" className="w-25" />
 				</Form.Group>
 	
 				<Form.Group className="mb-3">
 					<Form.Label>Password</Form.Label>
-					<Form.Control type="password" id="password" className="w-25" />
+					<Form.Control required type="password" id="password" className="w-25" />
 				</Form.Group>
 	
 				<Button type="submit" variant="primary">Log In</Button>
