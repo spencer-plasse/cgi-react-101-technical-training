@@ -56,7 +56,8 @@ export const Results = () => {
         break;
     }
 
-    const resultDisplay = results.map((result) => <Result result={result} key={result.completedDate} />);
+    const resultDisplay = results.map((result) => <Result result={result} key={result.completedDate} />)
+                          .sort((first, second) => first.completedDate > second.completedDate ? 1 : -1);
 
     return (
       <>
