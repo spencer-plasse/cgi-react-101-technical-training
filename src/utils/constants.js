@@ -5,6 +5,14 @@ export const questions = {
   CAN_TOUCH_TOES: "Can you touch your toes?"
 };
 
+export const answerOffsets = {
+	'Never': 1,
+	'Sometimes': 0,
+	'Always': -1,
+	'Yes': 1,
+	'No': -1
+};
+
 export const filters = {
   ALL: "all",
   RECENT: "recent",

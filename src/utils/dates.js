@@ -1,6 +1,6 @@
 export function isDateWithinWeek(date){
-  const today = new Date();
-  const weekAgo = new Date(today - 7);
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
 
   return date >= weekAgo;
 }

@@ -1,13 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const answerOffsets = {
-	'Never': 1,
-	'Sometimes': 0,
-	'Always': -1,
-	'Yes': 1,
-	'No': -1
-};
-
 export const answerSlice = createSlice({
 	name: 'answers',
 	initialState: {
@@ -23,7 +15,7 @@ export const answerSlice = createSlice({
 
 		saveRadioAnswer: (state, action) => {
 				const {questionId, answer} = action.payload;
-				state[questionId] = answerOffsets[answer];
+				state[questionId] = answer;
 		},
 		
 		submitAnswers: (state) => {

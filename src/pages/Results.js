@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 
 // React Bootstrap
 import Table from "react-bootstrap/Table";
-import Form from 'react-bootstrap/Form';
+import Dropdown from "react-bootstrap/Dropdown";
 
 // Custom
 import { Result } from "../components/Result";
@@ -44,11 +44,11 @@ export const Results = () => {
         break;
 
       case filters.RECENT:
-        results = results.filter((result) => isDateWithinWeek(result.completedDate));
+        results = results.filter((result) => isDateWithinWeek(new Date(result.completedDate)));
         break;
 
       case filters.OLD:
-        results = results.filter((result) => !isDateWithinWeek(result.completedDate));
+        results = results.filter((result) => !isDateWithinWeek(new Date(result.completedDate)));
         break;
 
       default:
@@ -56,18 +56,22 @@ export const Results = () => {
         break;
     }
 
-    const resultDisplay = results.map((result) => <Result result={result} />);
+    const resultDisplay = results.map((result) => <Result result={result} key={result.completedDate} />);
 
     return (
       <>
-        <Form className="mb-3 float-right">
-          <legend className="h5">Filter</legend>
-          <Form.Select size="md" onChange={(event) => setFilter(event.target.value)}>
-            <option value={filters.ALL}>All</option>
-            <option value={filters.RECENT}>Recent (last 7 days)</option>
-            <option value={filters.OLD}>Older (before last 7 days)</option>
-          </Form.Select>
-        </Form>
+        <span className="mt-2 float-left h5">Showing {filter.toLowerCase()} results:</span>
+        <div className="mb-3 float-right">
+          <Dropdown>
+            <Dropdown.Toggle variant="dark">Filter</Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={(event) => setFilter(filters.ALL)}>All</Dropdown.Item>
+              <Dropdown.Item onClick={(event) => setFilter(filters.RECENT)}>Recent (last 7 days)</Dropdown.Item>
+              <Dropdown.Item onClick={(event) => setFilter(filters.OLD)}>Older than 7 days</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
 
         <Table bordered striped hover>
           <thead>
