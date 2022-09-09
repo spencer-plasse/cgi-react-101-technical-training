@@ -1,5 +1,7 @@
+// Redux
 import { createSlice } from '@reduxjs/toolkit'
 
+// Keeps track of whether a user is logged in, and if so, their username and email
 export const authSlice = createSlice({
     name: 'authentication',
     initialState: {
@@ -7,6 +9,7 @@ export const authSlice = createSlice({
         user: null
     },
     reducers: {
+        // Log the user in and keep track of their username and email
         login: (state, action) => {
             const {username, email} = action.payload;
 
@@ -16,6 +19,8 @@ export const authSlice = createSlice({
                 email: email
             };
         },
+
+        // Log the user out
         logout: (state) => {
             state.loggedIn = false;
             state.user = null;
