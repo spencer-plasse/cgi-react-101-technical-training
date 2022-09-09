@@ -7,14 +7,23 @@ import { Navigate } from 'react-router-dom';
 // Redux
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice"
+import { useAuth } from '../redux/useAuth';
 
 // React Bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// "/login" page
 export const Login = () => {
 	const [validated, setValidated] = useState(false);
+	const {loggedIn, ...rest} = useAuth();
 	const dispatch = useDispatch();
+
+	// Works when turning "Persist state history" on in Redux DevTools but not otherwise? Couldn't figure it out.
+	if(loggedIn && !validated){
+		alert("You cannot access this page while you are logged in!");
+		return <Navigate to="/home" />;
+	}
 
 	function handleLogin(event){
 		const form = event.currentTarget;
@@ -65,15 +74,16 @@ export const Login = () => {
 
 	else{
 		return (
-			<Form noValidate validated={validated} onSubmit={handleLogin}>
+			<Form validated={validated} onSubmit={handleLogin}>
+				<Form.Text className="mb-3 h3 text-center">Log In</Form.Text>
 				<Form.Group className="mb-3">
 					<Form.Label>Email Address</Form.Label>
-					<Form.Control type="email" id="email" className="w-25" />
+					<Form.Control required type="email" id="email" className="w-25" />
 				</Form.Group>
 	
 				<Form.Group className="mb-3">
 					<Form.Label>Password</Form.Label>
-					<Form.Control type="password" id="password" className="w-25" />
+					<Form.Control required type="password" id="password" className="w-25" />
 				</Form.Group>
 	
 				<Button type="submit" variant="primary">Log In</Button>

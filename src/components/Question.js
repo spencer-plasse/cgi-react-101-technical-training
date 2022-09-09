@@ -1,6 +1,8 @@
+// Custom React components
 import { RadioQuestion } from './RadioQuestion';
 import { DateQuestion } from './DateQuestion';
 
+// Represents a general question on the "/questions" page
 export const Question = (props) => {
 	switch(props.type){
 		case "radio":
@@ -10,7 +12,7 @@ export const Question = (props) => {
 
 		case "date":
 			return (
-					<DateQuestion labelText={props.labelText} />
+					<DateQuestion questionId={props.questionId} labelText={props.labelText} />
 			)
 
 		default:

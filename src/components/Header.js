@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useAuth } from '../redux/useAuth';
 
 // React Bootstrap
 import Container from 'react-bootstrap/Container';
@@ -10,8 +10,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import { LinkContainer } from 'react-router-bootstrap';
 
+/* Header (navbar) to be displayed on the top of each page. Displays Login and Register links
+*  if no user is logged in or Questions, Results, and Log Out links as well as the current username
+*  if a user is logged in. */
 export const Header = () => {
-  const authStatus = useSelector((state) => state.auth);
+  const {loggedIn, username, } = useAuth();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -24,7 +27,7 @@ export const Header = () => {
 					</Nav.Link>
 				</Navbar.Brand>
 
-				{authStatus.loggedIn && (
+				{loggedIn && (
 					<Fragment>
 						<Nav>
 							<Nav.Item>
@@ -55,14 +58,14 @@ export const Header = () => {
 
 							<Nav.Item>
 								<Navbar.Text>
-									Signed in as <span className="text-danger">{authStatus.user.username}</span>
+									Signed in as <span className="text-danger">{username}</span>
 								</Navbar.Text>
 							</Nav.Item>
 						</Nav>
 					</Fragment>
 				)}
 
-				{!authStatus.loggedIn && (
+				{!loggedIn && (
 					<Nav>
 						<Nav.Item>
 							<Nav.Link>

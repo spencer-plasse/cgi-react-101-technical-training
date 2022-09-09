@@ -1,13 +1,7 @@
+// Redux
 import { createSlice } from '@reduxjs/toolkit';
 
-const answerOffsets = {
-	'Never': 1,
-	'Sometimes': 0,
-	'Always': -1,
-	'Yes': 1,
-	'No': -1
-};
-
+// Stores the current values for answers as the user provides them in "/questions"
 export const answerSlice = createSlice({
 	name: 'answers',
 	initialState: {
@@ -17,16 +11,28 @@ export const answerSlice = createSlice({
 		canTouchToes: null
 	},
 	reducers: {
+		// Saves the date answer every time a new date is selected (default format is an ISO date without time)
 		saveDateAnswer: (state, action) => {
 				state.dateOfBirth = action.payload;
 		},
+
+		// Saves the specified radio answer every time a new answer is selected
+		// Note: Saves the answer text rather than the numerical offset value
 		saveRadioAnswer: (state, action) => {
 				const {questionId, answer} = action.payload;
-				state[questionId] = answerOffsets[answer];
+				state[questionId] = answer;
+		},
+		
+		// Clear out answer state as the "/questions" form is submitted
+		submitAnswers: (state) => {
+			state.dateOfBirth = null;
+			state.doesWorkout = null;
+			state.doesEatJunkFood = null;
+			state.canTouchToes = null;
 		}
 	}
 });
 
-export const { saveDateAnswer, saveRadioAnswer } = answerSlice.actions;
+export const { saveDateAnswer, saveRadioAnswer, submitAnswers } = answerSlice.actions;
 export const { initialAnswerState } = answerSlice.getInitialState();
 export default answerSlice.reducer;

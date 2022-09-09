@@ -4,14 +4,25 @@ import { useState } from 'react'
 // React Router
 import { Navigate } from 'react-router-dom';
 
+// Redux
+import { useAuth } from '../redux/useAuth';
+
 // React Bootstrap
 import Form from "react-bootstrap/Form";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 
+// "/register" page
 export const Register = () => {
 	const [validated, setValidated] = useState(false);
+	const {loggedIn, ...rest} = useAuth();
+
+	// Works when turning "Persist state history" on in Redux DevTools but not otherwise? Couldn't figure it out.
+	if(loggedIn && !validated){
+		alert("You cannot access this page while you are logged in!");
+		return <Navigate to="/home" />;
+	}
 
 	function register(event){
 		const form = event.currentTarget;
@@ -58,6 +69,8 @@ export const Register = () => {
 	else{
 		return (
 			<Form noValidate onSubmit={register} validated={validated}>
+				<Form.Text className="mb-3 h3 text-center">Register</Form.Text>
+
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={3}>
 						<Form.Label>Username</Form.Label>
