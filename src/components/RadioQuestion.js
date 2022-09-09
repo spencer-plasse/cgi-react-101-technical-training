@@ -5,6 +5,7 @@ import { saveRadioAnswer } from "../redux/answerSlice";
 // React Bootstrap
 import Form from "react-bootstrap/Form";
 
+// Represents a single radio question in the "/questions" page
 export const RadioQuestion = (props) => {
   const dispatch = useDispatch();
   const questionId = props.questionId;

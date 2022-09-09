@@ -17,20 +17,21 @@ import Button from "react-bootstrap/Button";
 import { Question } from "../components/Question";
 import { questions, answerOffsets } from "../utils/constants";
 
+// "/questions" page
 export const Questions = () => {
 	const [validated, setValidated] = useState(false);
 	const {loggedIn, email, } = useAuth();
 	const answers = useSelector((state) => state.answers);
 	const dispatch = useDispatch();
 
+	// User must be logged in to access the "/questions" page
+	if(!loggedIn){
+		alert("You must log in to access this page!");
+		return <Navigate to="/login" />;
+	}
+
 	function submitForm(event){
-		const form = event.currentTarget;
-
 		try{
-			if(form.checkValidity() === false){
-				throw new Error("Form is missing answers.");
-			}
-
 			const currentDatetime = new Date();
 			const dateOfBirth = answers.dateOfBirth; // Stored in Redux as an ISO date string (without time)
 			const doesWorkout = answers.doesWorkout;
@@ -82,14 +83,9 @@ export const Questions = () => {
 		return <Navigate to="/results" />;
 	}
 
-	else if(!loggedIn){
-		alert("You must log in to access this page!");
-		return <Navigate to="/login" />;
-	}
-
 	else{
 		return (
-			<Form noValidate validated={validated} onSubmit={submitForm}>
+			<Form validated={validated} onSubmit={submitForm}>
 				<Question labelText={questions.DATE_OF_BIRTH} type="date" questionId="dateOfBirth" />
 				<Question labelText={questions.DOES_WORKOUT} type="radio" questionId="doesWorkout" answers={["Never", "Sometimes", "Always"]} />
 				<Question labelText={questions.DOES_EAT_JUNK_FOOD} type="radio" questionId="doesEatJunkFood" answers={["Never", "Sometimes", "Always"]} />

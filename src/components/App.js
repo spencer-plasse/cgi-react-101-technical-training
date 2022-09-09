@@ -25,6 +25,7 @@ function App() {
         <Header />
         <Container id="page-content">
           <Routes>
+            <Route exact path="/" element={<Home />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/questions" element={<Questions />}></Route>
             <Route path="/results" element={<Results />}></Route>
