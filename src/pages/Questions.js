@@ -16,6 +16,7 @@ import Button from "react-bootstrap/Button";
 // Custom
 import { Question } from "../components/Question";
 import { questions, answerOffsets } from "../utils/constants";
+import { monthDiff } from "../utils/dates";
 
 // "/questions" page
 export const Questions = () => {
@@ -39,8 +40,10 @@ export const Questions = () => {
 			const canTouchToes = answers.canTouchToes;
 
 			// Body age is calculated as the user's age + the combination of answer offsets (anywhere between -3 and 3)
-			const bodyAge = (currentDatetime.getFullYear() - new Date(dateOfBirth).getFullYear())
-											+ (answerOffsets[doesWorkout] + answerOffsets[doesEatJunkFood] + answerOffsets[canTouchToes]);
+			const bodyAge = Math.floor(monthDiff(new Date(dateOfBirth), currentDatetime) / 12)
+											+ (answerOffsets[doesWorkout] 
+												+ answerOffsets[doesEatJunkFood] 
+												+ answerOffsets[canTouchToes]);
 
 			const oldData = JSON.parse(localStorage.getItem(email));
 
