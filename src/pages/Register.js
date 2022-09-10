@@ -18,12 +18,6 @@ export const Register = () => {
 	const [validated, setValidated] = useState(false);
 	const {loggedIn, ...rest} = useAuth();
 
-	// Works when turning "Persist state history" on in Redux DevTools but not otherwise? Couldn't figure it out.
-	if(loggedIn && !validated){
-		alert("You cannot access this page while you are logged in!");
-		return <Navigate to="/home" />;
-	}
-
 	function register(event){
 		const form = event.currentTarget;
 
@@ -73,7 +67,7 @@ export const Register = () => {
 
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={3}>
-						<Form.Label>Username</Form.Label>
+						<Form.Label htmlFor="username">Username</Form.Label>
 						<Form.Control type="text" id="username" required />
 	
 						<Form.Control.Feedback type="invalid">Username is a required field!</Form.Control.Feedback>
@@ -82,7 +76,7 @@ export const Register = () => {
 				
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={4}>
-						<Form.Label>Email Address</Form.Label>
+						<Form.Label htmlFor="email">Email Address</Form.Label>
 						<Form.Control type="email" id="email" required />
 	
 						<Form.Control.Feedback type="invalid">Email address is a required field!</Form.Control.Feedback>
@@ -91,7 +85,7 @@ export const Register = () => {
 				
 				<Row className="mb-3">
 					<Form.Group as={Col} xs={4}>
-						<Form.Label>Password</Form.Label>
+						<Form.Label htmlFor="password">Password</Form.Label>
 						<Form.Control type="password" id="password" required />
 	
 						<Form.Control.Feedback type="invalid">Password is a required field!</Form.Control.Feedback>

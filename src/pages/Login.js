@@ -77,16 +77,16 @@ export const Login = () => {
 			<Form validated={validated} onSubmit={handleLogin}>
 				<Form.Text className="mb-3 h3 text-center">Log In</Form.Text>
 				<Form.Group className="mb-3">
-					<Form.Label>Email Address</Form.Label>
+					<Form.Label htmlFor="email">Email Address</Form.Label>
 					<Form.Control required type="email" id="email" className="w-25" />
 				</Form.Group>
 	
 				<Form.Group className="mb-3">
-					<Form.Label>Password</Form.Label>
+					<Form.Label htmlFor="password">Password</Form.Label>
 					<Form.Control required type="password" id="password" className="w-25" />
 				</Form.Group>
 	
-				<Button type="submit" variant="primary">Log In</Button>
+				<Button type="submit" variant="primary" title="login">Log In</Button>
 			</Form>
 		)
 	}
