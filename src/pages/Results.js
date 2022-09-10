@@ -28,40 +28,47 @@ export const Results = () => {
   }
 
   let userData = JSON.parse(localStorage.getItem(email));
+  let resultDisplay;
 
-  // In case user has not calculated a body age before (in general or for a specific browser)
-  if(!("results" in userData)){
-    return (
-      <section>
-        <span className="h4">There are no results to display!</span><br />
-        <span>Click on "Questions" in the navbar to calculate a new body age result.</span>
-      </section>
-    );
+  if(userData){
+    // In case user has not calculated a body age before (in general or for a specific browser)
+    if(!("results" in userData)){
+      return (
+        <section>
+          <span className="h4">There are no results to display!</span><br />
+          <span>Click on "Questions" in the navbar to calculate a new body age result.</span>
+        </section>
+      );
+    }
+
+    let results = Object.values(userData.results);
+
+    // Filter result list based on selected filter
+    switch(filter){
+      case filters.ALL:
+        break;
+
+      case filters.RECENT:
+        results = results.filter((result) => isDateWithinWeek(new Date(result.completedDate)));
+        break;
+
+      case filters.OLD:
+        results = results.filter((result) => !isDateWithinWeek(new Date(result.completedDate)));
+        break;
+
+      default:
+        alert(`Invalid filter value: ${filter}. Displaying all results.`);
+        break;
+    }
+
+    // Sort results in order of most recently completed
+    resultDisplay = results.map((result) => <Result result={result} key={result.completedDate} />)
+                          .sort((first, second) => first.completedDate > second.completedDate ? 1 : -1);
   }
-
-  let results = Object.values(userData.results);
-
-  // Filter result list based on selected filter
-  switch(filter){
-    case filters.ALL:
-      break;
-
-    case filters.RECENT:
-      results = results.filter((result) => isDateWithinWeek(new Date(result.completedDate)));
-      break;
-
-    case filters.OLD:
-      results = results.filter((result) => !isDateWithinWeek(new Date(result.completedDate)));
-      break;
-
-    default:
-      alert(`Invalid filter value: ${filter}. Displaying all results.`);
-      break;
+  
+  else{
+    resultDisplay = <></>;
   }
-
-  // Sort results in order of most recently completed
-  const resultDisplay = results.map((result) => <Result result={result} key={result.completedDate} />)
-                        .sort((first, second) => first.completedDate > second.completedDate ? 1 : -1);
 
   return (
     <>
