@@ -20,7 +20,8 @@ export const Logout = () => {
 	const {loggedIn, username, } = useAuth();
 	const dispatch = useDispatch();
 
-	function handleLogout(){
+	function handleLogout(event){
+		event.preventDefault();
 		dispatch(logout());
     setLoggedOut(true);
 	}
@@ -48,7 +49,7 @@ export const Logout = () => {
 						</LinkContainer>
 					</Button>
 
-					<Button type="submit" variant="danger">Log Out</Button>
+					<Button type="submit" variant="danger" title="logout">Log Out</Button>
 				</Form.Group>
 			</Form>
 		)
