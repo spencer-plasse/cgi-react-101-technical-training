@@ -19,6 +19,7 @@ export const Register = () => {
 	const {loggedIn, ...rest} = useAuth();
 
 	function register(event){
+		event.preventDefault();
 		const form = event.currentTarget;
 
 		try{
@@ -49,7 +50,6 @@ export const Register = () => {
 			alert(exception.message);
 
 			setValidated(false);
-			event.preventDefault();
 			event.stopPropagation();
 			
 			return;
@@ -92,7 +92,7 @@ export const Register = () => {
 					</Form.Group>
 				</Row>
 	
-				<Button type="submit" variant="primary">Register</Button>
+				<Button type="submit" variant="primary" title="register">Register</Button>
 			</Form>
 		)
 	}

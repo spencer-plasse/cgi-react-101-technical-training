@@ -1,6 +1,7 @@
 // Testing
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
 
 // Custom
@@ -9,9 +10,8 @@ import App from '../components/App';
 import { store } from '../redux/store';
 import { login } from "../redux/authSlice";
 
-// WARNING: THIS TEST WILL FAIL
-// Check page contents
-test("Assert that the contents of the page are correct", async () => {
+// Check page contents and validate that logging out reflects in the navbar
+test("Assert the page contents are correct and logouts are correctly reflected", async () => {
   // Simulate login
   store.dispatch(login({
     username: "splasse",
@@ -19,7 +19,16 @@ test("Assert that the contents of the page are correct", async () => {
   }));
 
   render(withProvider(<App />));
-  await userEvent.click(screen.getByText("Logout"));
 
+  await act(async () => {
+    await userEvent.click(screen.getByText("Log Out"));
+  });
+  
   expect(screen.getByText(/Are you sure/)).toBeInTheDocument();
+
+  await act(async () => {
+    await userEvent.click(screen.getByTitle("logout"));
+  });
+
+  expect(screen.getByText("Login")).toBeInTheDocument();
 });
