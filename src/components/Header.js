@@ -57,7 +57,7 @@ export const Header = () => {
 							</Nav.Item>
 
 							<Nav.Item>
-								<Navbar.Text>
+								<Navbar.Text title="userStatus">
 									Signed in as <span className="text-danger">{username}</span>
 								</Navbar.Text>
 							</Nav.Item>

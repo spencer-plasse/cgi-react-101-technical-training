@@ -26,6 +26,7 @@ export const Login = () => {
 	}
 
 	function handleLogin(event){
+		event.preventDefault();
 		const form = event.currentTarget;
 
 		try{
@@ -61,7 +62,6 @@ export const Login = () => {
 			alert(exception.message);
 
 			setValidated(false);
-			event.preventDefault();
 			event.stopPropagation();
 	
 			return;
